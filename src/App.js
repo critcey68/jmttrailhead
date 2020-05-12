@@ -1,17 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import HomePage from "./containers/HomePage/HomePage";
+import PackingListPage from "./containers/PackingListPage/PackingListPage";
 
-class App extends Component {
-    state = {
+const App = () => {
+    const state = {
         data: null
     };
 
-    componentDidMount() {
-        this.callBackendAPI();
-    }
+//     componentDidMount() {
+//         this.callBackendAPI();
+//     }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-    callBackendAPI = async () => {
+    const callBackendAPI = async () => {
         try {
             const response = await fetch('/express_backend');
             const body = await response.json();
@@ -23,13 +30,19 @@ class App extends Component {
         return;
     };
 
-  render () {
-      return (
-        <div className="App">
-            <HomePage/>
+  return (
+      <Router>
+        <div>
+            <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route exact path="/packing" component={PackingListPage} />
+                <Route path="*">
+                    <Redirect to="/" />
+                </Route>
+            </Switch>
         </div>
-      );
-  }
+    </Router>
+  );
 }
 
 export default App;
