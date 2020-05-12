@@ -1,6 +1,7 @@
 const initialState = {
   counter: 0,
   results: [],
+  packingList: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +37,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         results: state.results.splice(2),
+      }
+    case 'BUILD_PACKING_LIST':
+      return {
+        ...state,
+        packingList: state.packingList,
       }
     default: return state;
   }

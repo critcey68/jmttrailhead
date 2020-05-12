@@ -6,7 +6,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import HomePage from "./containers/HomePage/HomePage";
+import ReducerPracticePage from "./containers/ReducerPracticePage/ReducerPracticePage";
 import PackingListPage from "./containers/PackingListPage/PackingListPage";
 
 const App = () => {
@@ -34,7 +34,7 @@ const App = () => {
       <Router>
         <div>
             <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route exact path="/" component={ReducerPracticePage} />
                 <Route exact path="/packing" component={PackingListPage} />
                 <Route path="*">
                     <Redirect to="/" />
