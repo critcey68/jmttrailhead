@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCount } from "../../store/PackingList/actions";
+import { Link } from "react-router-dom";
+import { buildPackingList } from "../../store/PackingList/actions";
 
 export default () => {
-  const count = useSelector(state => state.counter);
+  const packingList = useSelector(state => state.packingList);
   const dispatch = useDispatch();
 
-  console.log(count);
+  const fetchPackingList = async() => {
+      const response = await fetch('/packing_list');
+      const body = await response.json();
+      return body;
+  };
+
+  useEffect(() => {
+    fetchPackingList().then(body => {
+      console.log(body.data);
+      dispatch(buildPackingList(body.data));
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
+  }, [dispatch]);
 
   return (
     <main>
-      <div>Count: {count}</div>
-      <button onClick={() => dispatch(addCount())}>Add to count</button>
+      <Link to="/">Home</Link>
+      {packingList.map((item, index) =>
+        <p key={index}>{item.name}</p>
+      )}
     </main>
   );
 };
-
-// useSelector replaces mapStateToProps
-// useDispatch replaces mapDispatch to Props

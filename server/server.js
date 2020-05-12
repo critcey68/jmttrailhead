@@ -16,11 +16,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, "../build/index.html"));
 });
 
-// create a GET route
-app.get('/express_backend', GetAllFromGear, (req, res) => {
+app.get('/packing_list', GetAllFromGear, (req, res) => {
     res.send({
-        express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT',
         data: res.locals.data,
+        node: 200,
      });
 });
 
